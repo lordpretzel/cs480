@@ -1,6 +1,6 @@
 # Overview
 
-This repository stores some example SQL scripts and a Dockerfile for setting up a postgres container with the university example database for CS480 at UIC. Some relevant Postgres and Docker links are shown at the bottom of this page.
+This repository stores some example SQL scripts and a Dockerfile for setting up a postgres container with the university example database for [CS480](https://cs.uic.edu/~glavic/cs480/) at UIC. Some relevant Postgres and Docker links are shown at the bottom of this page.
 
 * An example SQL notebook can be found here [here](http://htmlpreview.github.io/?https://github.com/IITDBGroup/cs480/blob/master/example-notebook/cs480-notebook-example.html)
 
