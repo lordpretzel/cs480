@@ -1,0 +1,9 @@
+.aux
+.fdb_latexmk
+.fls
+.log
+.tex
+_minted/
+readme.org
+readme.synctex.gz
+readme.tex
