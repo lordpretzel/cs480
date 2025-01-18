@@ -5,7 +5,6 @@ This repository stores some example SQL scripts and a Dockerfile for setting up 
 * [Postgres setup information and tutorial](https://github.com/lordpretzel/cs480/blob/master/postgres_setup/readme.md)
 * An example SQL notebook can be found here [here](http://htmlpreview.github.io/?https://github.com/lordpretzel/cs480/blob/master/example-notebook/cs480-notebook-example.html)
 
-
 # Using the docker images
 
 The image for CS480 [https://hub.docker.com/r/lordpretzel/cs480/](https://hub.docker.com/r/lordpretzel/cs480/) is based on the official postgres alpine image [https://hub.docker.com/_/postgres/](https://hub.docker.com/_/postgres/) which is based on the `alpine` linux image [https://hub.docker.com/_/alpine/](https://hub.docker.com/_/alpine/)
@@ -107,7 +106,6 @@ For information about jupyter and cell magic see [http://jupyter.org/](http://ju
 
 # Postgres Links and Information
 
-* Tutorials and information for installing and running postgres for the course []()
 * Postgres official webpage: [https://www.postgresql.org/](https://www.postgresql.org/)
 
 ## Documentation
