@@ -105,8 +105,6 @@ mkdir ~/mypostgres-data
 2. Run the `initdb` command to initialize the cluster
 
 ```sh
-$ mkdir ~/mypostgres-data
-
 $ initdb ~/mypostgres-data
 The files belonging to this database system will be owned by user "lord_pretzel".
 This user must also own the server process.
