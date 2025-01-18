@@ -2,7 +2,9 @@
 
 This repository stores some example SQL scripts and a Dockerfile for setting up a postgres container with the university example database for [CS480](https://cs.uic.edu/~glavic/cs480/) at UIC. Some relevant Postgres and Docker links are shown at the bottom of this page.
 
+* [Postgres setup information and tutorial](https://github.com/IITDBGroup/cs480/blob/master/postgres_setup/readme.md)
 * An example SQL notebook can be found here [here](http://htmlpreview.github.io/?https://github.com/IITDBGroup/cs480/blob/master/example-notebook/cs480-notebook-example.html)
+
 
 # Using the docker images
 
@@ -103,15 +105,16 @@ docker run --user root --rm --name=mynotebook -v "$(pwd)":/home/jovyan/ -p 0.0.0
 
 For information about jupyter and cell magic see [http://jupyter.org/](http://jupyter.org/). The particular cell magic used here for running sql is described [here](https://jupysql.ploomber.io/en/latest/quick-start.html).
 
-# Postgres Links
+# Postgres Links and Information
 
+* Tutorials and information for installing and running postgres for the course []()
 * Postgres official webpage: [https://www.postgresql.org/](https://www.postgresql.org/)
 
 ## Documentation
 
-* Online Postgres documentation: [https://www.postgresql.org/docs/9.6/static/index.html](https://www.postgresql.org/docs/14/index.html)
+* Online Postgres documentation: [https://www.postgresql.org/docs/14/index.html](https://www.postgresql.org/docs/14/index.html)
 
-* Postgres docu as a PDF: [https://www.postgresql.org/files/documentation/pdf/14/postgresql-14-A4.pdf](https://www.postgresql.org/files/documentation/pdf/14/postgresql-14-A4.pdf)
+* Postgres docu as a PDF: [https://www.postgresql.org/files/documentation/pdf/17/postgresql-17-A4.pdf](https://www.postgresql.org/files/documentation/pdf/17/postgresql-17-A4.pdf)
 
 ## Programming Language APIs
 
