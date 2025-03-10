@@ -23,7 +23,7 @@ connection = {
 
 # Create a connection
 try:
-    # conn = psycopg2.connect(dbname="university", user="postgres") 
+    # conn = psycopg2.connect(dbname="university", user="postgres")
     conn = psycopg2.connect(**connection)
 except Exception as e:
     print(f"I am unable to connect to the database with connection parameters:\n{connection}\n{e}")
@@ -55,14 +55,14 @@ rows = cur.fetchall()
 print("\nResults: \n")
 for row in rows:
     # Rows are encoded as tuples
-    print(f"{row}") 
+    print(f"{row}")
     print(f" or to access a particular column (2nd one): {row[1]}")
 
 # transactions are explicitely terminated by running con.rollback() or con.commit()
 cur.execute("DELETE FROM student")
 conn.rollback()
 exec_and_print_result(cur, "SELECT count(*) FROM student")
-    
+
 # close the connection
 cur.close()
 
