@@ -94,6 +94,28 @@ A GUI client for administrating a postgres database. Also useful for editing SQL
 
 For instance, **SQuirreL SQL** ([http://squirrel-sql.sourceforge.net/](http://squirrel-sql.sourceforge.net/)) is a popular 3rd party client written in Java that supports multiple DBMS, **pgcli** ([https://www.pgcli.com/](https://www.pgcli.com/)) is an enhanced version of *psql* written in python.
 
+# Docker Image for Relational Algebra with RADB
+
+We also provide a docker image to run the `radb` python package ([https://users.cs.duke.edu/~junyang/radb/start.html](https://users.cs.duke.edu/~junyang/radb/start.html)). To test your code, install this package and use it to connect to a database (the autograder uses Postgres: [https://www.postgresql.org/](https://www.postgresql.org)). For instance, to run a postgres container and link the radb container to enable it to access postgres.
+
+```sh
+docker run --name mypostgres -e POSTGRES_PASSWORD=test -p 5432:5432 -d iitdbgroup/cs480
+docker run -it --rm --link mypostgres:postgres iitdbgroup/radb radb
+```
+
+## Configuration file `.radb.ini`
+
+`radb` reads postgres connection parameters from `~/.radb.ini`. In this container this is at `/root/.radb.ini`. To change parameters, mount a file from your host.
+
+```conf
+[DEFAULT]
+db.drivername=postgresql+psycopg2
+db.username=postgres
+db.host=127.0.0.1
+db.port=5432
+db.database=postgres
+```
+
 # Interactive SQL notebooks with Jupyter
 
 Some example notebooks are in the repository under `example-notebook`. Example notebook(s) can be found in the `example-notebooks` folder of this repository. Jupyter notebooks are interactive python environments that the user accesses through a web interface that allow code and documentation to be interleaved. Sessions can be stored as `.ipynb` files. You can use a docker image `iitdbgroup/sql-notebook` that we provide to run a jupyter notebook server that is available through a browser on your local machine at [http://127.0.0.1:8888/tree?](http://127.0.0.1:8888/tree?). Run the following command from the folder containing the notebook files (`.ipynb`) or any parent folder of this folder. This will create a docker virtual network called `mynbnetwork` and create two containers - one running postgres (`notebpostgres`) and a second one running the notebook server (`mynotebook`). For convenience you can use the scripts `startNotebook.sh` and `stopNotebook.sh`.

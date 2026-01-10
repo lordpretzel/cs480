@@ -1,0 +1,33 @@
+########################################
+# start from alpine image for postgres
+FROM ubuntu:24.04
+LABEL org.opencontainers.image.authors="bglavic@uic.edu"
+
+# Package dependencies
+RUN ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime
+
+RUN apt-get -y update && \
+    apt-get -y install software-properties-common
+
+RUN add-apt-repository -y ppa:deadsnakes/ppa
+
+RUN apt-get -y update && \
+    apt-get -y install \
+    curl \
+    postgresql \
+    build-essential \
+    python3.9 \
+    git \
+    libpq-dev \
+    sudo
+
+COPY requirements.txt /requirements.txt
+COPY .radb.ini /root/.radb.ini
+
+RUN apt-get -y install python3.9-distutils
+RUN apt-get -y install python3.9-dev
+RUN curl https://bootstrap.pypa.io/get-pip.py | python3.9
+RUN python3.9 -m pip install -U pip wheel setuptools requests
+RUN python3.9 -m pip install --no-cache-dir -r /requirements.txt
+
+ENTRYPOINT /usr/local/bin/radb

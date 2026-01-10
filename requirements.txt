@@ -1,0 +1,6 @@
+pytest
+pyyaml
+psycopg2-binary
+pandas
+lark
+radb
