@@ -15,23 +15,23 @@ To start a postgres server create a container from the image. You can either let
 
 To start a container with a new database run the following command. Here `--name` assigns a name to the created container, `-e POSTGRES_PASSWORD=test` sets the environment variable `POSTGRES_PASSWD` to value `test` inside the container. The postgres container uses this variable to setup a `postgres` database user with this password. Option `-p 5432:5432` exposes port **5432** from the container as port **5432**. This port is the standard network port of the postgres database server, i.e., clients will connect to the server using this port. Option `-d` puts the container into daemon mode, i.e., it will run in the background.
 
-~~~
+```shell
 docker run --name mypostgres -e POSTGRES_PASSWORD=test -p 5432:5432 -d iitdbgroup/cs480
-~~~
+```
 
 ## Start a container using a DB that is stored on your local machine
 
 Create a directory on your local machine were you want to store the database. Here I am creating the directory `/mypost_data`, but you probably want to rather create a directory inside your home directory.
 
-~~~
+```shell
 mkdir /mypost_data
-~~~
+```
 
 Now start a container mounting this directory as a volume. At the first start the container will initialize this directory as what Postgres calls a cluster. A cluster is a directory managed by the Postgres server for storing database content. Additionally, this directory also stores configuration files for the server.
 
-~~~
+```shell
 docker run --name mypostgres -e POSTGRES_PASSWORD=test -v /mypost_data:/var/lib/postgresql/data -p 5432:5432 -d iitdbgroup/cs480
-~~~
+```
 
 The `-v` parameter mounts local directory `/mypost_data` as directory `/var/lib/postgresql/data` in the container. Directory `/var/lib/postgresql/data` is the location which the `iitdbgroup/cs480` image uses to store the postgres cluster directory.
 
@@ -48,13 +48,13 @@ To run SQL commands on the postgres server you need a client application that co
 
 **psql** is the standard commandline client of Postgres. If you have created a container `mypostgres` then to run the `psql` client within the container run
 
-~~~
+```shell
 docker exec -ti mypostgres psql -U postgres -d cs480
-~~~
+```
 
 This will start the **psql** client and connect to a database `cs480` (storing the textbook university schema) using user `postgres`. Within `psql` you can now run SQL commands or control commands (starting with `\`). For instance `\q` quits the client. See below for an example session.
 
-~~~
+```shell
 $docker exec -ti mypostgres psql -U postgres -d cs480
 psql (9.6.3)
 Type "help" for help.
@@ -73,13 +73,13 @@ cs480=# SELECT * FROM department;
 
 cs480=# \q
 $
-~~~
+```
 
 Alternatively, you can spawn a new container to run **psql** and connect this container to your the container running the postgres server:
 
-~~~
+```shell
 docker run -it --rm --link mypostgres:postgres iitdbgroup/cs480 psql -h postgres -U postgres -d cs480
-~~~
+```
 
 This time **psql** will ask your for the postgres user's password. This is the one you setup when creating the container (`POSTGRES_PASSWORD`).
 
@@ -148,9 +148,9 @@ psql -f homework_1.sql
 
 Some example notebooks are in the repository under `example-notebook`. Example notebook(s) can be found in the `example-notebooks` folder of this repository. Jupyter notebooks are interactive python environments that the user accesses through a web interface that allow code and documentation to be interleaved. Sessions can be stored as `.ipynb` files. You can use a docker image `iitdbgroup/sql-notebook` that we provide to run a jupyter notebook server that is available through a browser on your local machine at [http://127.0.0.1:8888/tree?](http://127.0.0.1:8888/tree?). Run the following command from the folder containing the notebook files (`.ipynb`) or any parent folder of this folder. This will create a docker virtual network called `mynbnetwork` and create two containers - one running postgres (`notebpostgres`) and a second one running the notebook server (`mynotebook`). For convenience you can use the scripts `startNotebook.sh` and `stopNotebook.sh`.
 
-~~~
+```shell
 docker run --user root --rm --name=mynotebook -v "$(pwd)":/home/jovyan/ -p 0.0.0.0:8888:8888/tcp --link  mypostgres:postgres -d iitdbgroup/sql-notebook start-notebook.sh --NotebookApp.token=''
-~~~
+```
 
 For information about jupyter and cell magic see [http://jupyter.org/](http://jupyter.org/). The particular cell magic used here for running sql is described [here](https://jupysql.ploomber.io/en/latest/quick-start.html).
 
