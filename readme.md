@@ -94,18 +94,38 @@ A GUI client for administrating a postgres database. Also useful for editing SQL
 
 For instance, **SQuirreL SQL** ([http://squirrel-sql.sourceforge.net/](http://squirrel-sql.sourceforge.net/)) is a popular 3rd party client written in Java that supports multiple DBMS, **pgcli** ([https://www.pgcli.com/](https://www.pgcli.com/)) is an enhanced version of *psql* written in python.
 
-# Docker Image for Relational Algebra with RADB
+# RADB - Relational Algebra
 
-We also provide a docker image to run the `radb` python package ([https://users.cs.duke.edu/~junyang/radb/start.html](https://users.cs.duke.edu/~junyang/radb/start.html)). To test your code, install this package and use it to connect to a database (the autograder uses Postgres: [https://www.postgresql.org/](https://www.postgresql.org)). For instance, to run a postgres container and link the radb container to enable it to access postgres.
+We also provide a docker image to run the `radb` python package ([https://users.cs.duke.edu/~junyang/radb/start.html](https://users.cs.duke.edu/~junyang/radb/start.html)). To test your code, install this package and use it to connect to a database (the autograder uses Postgres: [https://www.postgresql.org/](https://www.postgresql.org)). **Note that this requires a running postgres server!**
 
-```sh
+## Docker Image for RADB
+
+To run a postgres container and link the radb container to enable it to access postgres.
+
+```shell
 docker run --name mypostgres -e POSTGRES_PASSWORD=test -p 5432:5432 -d iitdbgroup/cs480
 docker run -it --rm --link mypostgres:postgres iitdbgroup/radb radb
 ```
 
+## Installing RADB locally
+
+You can install it using `pip`.
+
+```shell
+pip install radb psycopg2-binary
+```
+
+After setting up the configuration file as shown below, you can run:
+
+```shell
+radb
+```
+
 ## Configuration file `.radb.ini`
 
-`radb` reads postgres connection parameters from `~/.radb.ini`. In this container this is at `/root/.radb.ini`. To change parameters, mount a file from your host.
+`radb` reads postgres connection parameters from `~/.radb.ini`.
+- **For docker users:** In the docker container this is at `/root/.radb.ini`. To change parameters, mount a file from your host.
+- **For local installs**: This is in your user's homefolder
 
 ```conf
 [DEFAULT]
@@ -114,6 +134,14 @@ db.username=postgres
 db.host=127.0.0.1
 db.port=5432
 db.database=postgres
+```
+
+## Homework 1
+
+- setup radb and its configuration file as shown above, you want to load the schema and example data from `homework_1.sql`. You can do this with any postgres client, e.g., using `psql` (you may need to add connection arguments specific to your postgres server for this to work):
+
+```shell
+psql -f homework_1.sql
 ```
 
 # Interactive SQL notebooks with Jupyter
