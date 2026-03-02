@@ -1,6 +1,7 @@
 pytest
 pyyaml
 psycopg2-binary
+pg8000
 pandas
 lark
 radb
