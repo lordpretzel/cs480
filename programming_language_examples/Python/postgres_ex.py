@@ -7,12 +7,13 @@ def exec_and_print_result(c,sql):
     try:
         print(80 * "=" + f"\nQUERY: {sql}\n")
         c.execute(sql)
-        rows = c.fetchall()
+        rows = c.fetchall() # here we use fetchall to get all results at once
         for r in rows:
-            print(f"{r}")
+            print(f"{r}")        
     except:
         print(f"execution of query {sql} did fail")
 
+# modify this if you are using different connection parameters        
 connection = {
     'dbname': 'university',
     'user': 'postgres',
@@ -21,14 +22,26 @@ connection = {
     'port': 5450
     }
 
-# Create a connection
-try:
-    # conn = psycopg2.connect(dbname="university", user="postgres")
-    conn = psycopg2.connect(**connection)
-except Exception as e:
-    print(f"I am unable to connect to the database with connection parameters:\n{connection}\n{e}")
-    exit(1)
+def connect(connsettings=connection):
+    try:
+        conn = psycopg2.connect(**connsettings)
+        return conn
+    except Exception as e:
+        print(f"I am unable to connect to the database with connection parameters:\n{connection}\n{e}")
+        exit(1)
+    
+def connect_and_run_query(sql, connsettings=connection):
+    conn = connect(**connsettings)
+    print("Connected successfully")
+    cur = conn.cursor()
+    exec_and_print_result(cur, sql)
+    cur.close()
+    conn.close()
+    
 
+
+# Create a connection
+conn = connect(connection)
 # Create a curson
 cur = conn.cursor()
 
@@ -43,7 +56,6 @@ rows = cur.fetchall()
 print("\nResults: \n")
 for row in rows:
     print(f"   {row}")
-
 
 # now a query with more result columns
 try:
